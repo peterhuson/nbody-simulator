@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
+/**
+ * The Simulator models all the physics
+ */
 public class Simulator {
     private Random random = new Random();
     private Configuration config;
@@ -23,6 +26,9 @@ public class Simulator {
         this.config = config;
     }
 
+    /**
+     * Use Gaussians to randomly initialize the application over a Normal distribution
+     */
     public ArrayList<Node> Initialize() {
 
         this.numBalls = (int) (random.nextGaussian() * config.numBallsSTD) + config.avgBalls;
@@ -41,7 +47,10 @@ public class Simulator {
         return sphereList;
     }
 
-    public void Simulate(final ArrayList<Node> sphereList){
+    /**
+     * Handle each frame of the simulation, detecting collisions and updating velocities.
+     */
+    public void Simulate(final ArrayList<Node> sphereList) {
         Timeline timeline = new Timeline(new KeyFrame(config.frameDuration, new EventHandler<ActionEvent>() {
 
             @Override
@@ -53,21 +62,16 @@ public class Simulator {
                     // Update Positions
                     sphere.setTranslateX(sphere.getTranslateX() + (double) vel.get(0));
                     sphere.setTranslateY(sphere.getTranslateY() + (double) vel.get(1));
-                    //Left or right border
-                    if(sphere.getTranslateX() <= (sphere.getRadius()) ||
-                            sphere.getTranslateX() >= (config.windowWidth - sphere.getRadius()) ){
-
-                        // Reverse Direction
+                    //Left or right border collisions
+                    if (sphere.getTranslateX() <= (sphere.getRadius()) ||
+                            sphere.getTranslateX() >= (config.windowWidth - sphere.getRadius())) {
                         vel.set(0, -(double) vel.get(0));
-
                     }
 
-                    //Top or bottom border
-                    if((sphere.getTranslateY() >= (config.windowHeight - sphere.getRadius())) ||
-                            (sphere.getTranslateY() <= (sphere.getRadius()))){
-
-                         // Reverse Direction
-                         vel.set(1, -(double) vel.get(1));
+                    //Top or bottom border collisions
+                    if ((sphere.getTranslateY() >= (config.windowHeight - sphere.getRadius())) ||
+                            (sphere.getTranslateY() <= (sphere.getRadius()))) {
+                        vel.set(1, -(double) vel.get(1));
                     }
                     velocities.set(i, vel);
                 }
