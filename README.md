@@ -18,8 +18,6 @@ Version 0.3 plans:
 - [ ] The Mouse represents a body with mass when it is moved over the screen
 - [ ] Scrolling increases or decreases the mass of the mouse
 - [ ] Balls trace out a line or stream of dots that slowly disappears in their wake
-- [ ] 
-- [ ] 
 
 Version 1: 
 - [ ] Relativistic effects
